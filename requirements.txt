@@ -3,3 +3,4 @@ pandas==1.3.3
 scikit-learn==1.0
 flask==1.1.4
 gunicorn==20.1.0
+catboost==1.0.0

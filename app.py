@@ -16,7 +16,7 @@ def home():
 
 @app.route("/predict", methods=['POST'])
 def predictRouteClient():
-    try:
+
         if request.form is not None:
             path = request.form['filepath']
             data = pandas.read_csv(path)
@@ -27,13 +27,7 @@ def predictRouteClient():
             return output_path
         else:
             print('Nothing Matched')
-    except ValueError:
-        return Response("Error Occurred! %s" %ValueError)
-    except KeyError:
-        return Response("Error Occurred! %s" %KeyError)
-    except Exception as e:
-        return Response("Error Occurred! %s" %e)
     
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

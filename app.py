@@ -23,7 +23,7 @@ def predictRouteClient():
             y_pred = model.predict(data)
             data['isFraud'] = y_pred
             output_path = "predictions/"+ "Output_"+ datetime.now().strftime("%d-%m-%Y_%H:%M:%S") + ".csv"
-            # data.to_csv(output_path, index=False)
+            data.to_csv(output_path, index=False)
             return output_path
         else:
             print('Nothing Matched')

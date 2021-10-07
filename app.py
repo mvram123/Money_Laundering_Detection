@@ -1,8 +1,6 @@
 from flask import Flask, request, render_template
 from flask import Response
 from datetime import datetime
-import os
-import json
 import pandas
 import pickle
 

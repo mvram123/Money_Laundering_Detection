@@ -19,15 +19,11 @@ def predictRouteClient():
     try:
         if request.form is not None:
             path = request.form['filepath']
-            print(path)
-            print("Reading Data...")
             data = pandas.read_csv(path)
-            print("Predicting Outputs...")
             y_pred = model.predict(data)
             data['isFraud'] = y_pred
-            print("Storing Outputs...")
             output_path = "predictions/"+ "Output_"+ datetime.now().strftime("%d-%m-%Y_%H:%M:%S") + ".csv"
-            data.to_csv(output_path, index=False)
+            # data.to_csv(output_path, index=False)
             return output_path
         else:
             print('Nothing Matched')

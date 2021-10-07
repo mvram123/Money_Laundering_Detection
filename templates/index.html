@@ -184,7 +184,7 @@
 					type: "POST",
 					data: {filepath:path},
 					success: function(response){
-						$(".json-result").html('Prediction File Path : ' + '<pre>' + response + '</pre>');	
+						$(".json-result").html('Output File In Drive Folder: <a href=https://drive.google.com/drive/folders/1UGQyeMhA8YR0UFT5suftSckVvfXcBd-d?usp=sharing> Google Drive Folder</a> ' + '<pre>  File Name : ' + response + '</pre>');	
 						$('#loading').hide();
 					}
 				});

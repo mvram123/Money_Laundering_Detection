@@ -3,7 +3,10 @@ from flask import Response
 from datetime import datetime
 import pandas
 import pickle
+import json
+import requests
 
+headers = {"Authorization": "Bearer ya29.a0ARrdaM_JMbDHKbHk4e0AI-XcCOEYI8a7IZjgDnodWMPqGU1GNS6it9rimFZ8EyatqToavCojIIG-HXsGtVSKJCKx6vB-JbirqHVtoVaZ83r4wP8qE9LcHWKZFW9_rPjxBZiZtJa_glNhNPE5nyM6VJ1s8UzX"}
 
 model_path = 'saved_models/model.pkl'
 model = pickle.load(open(model_path, 'rb'))
@@ -24,7 +27,24 @@ def predictRouteClient():
             data['isFraud'] = y_pred
             output_path = "predictions/"+ "Output_"+ datetime.now().strftime("%d-%m-%Y_%H:%M:%S") + ".csv"
             data.to_csv(output_path, index=False)
-            return output_path
+            file_name = "Output_"+ datetime.now().strftime("%d-%m-%Y_%H:%M:%S") + ".csv"
+            para = {
+                    "name": file_name,
+                    "parents":["1UGQyeMhA8YR0UFT5suftSckVvfXcBd-d"]
+
+                    }
+            files = {
+                    'data': ('metadata', json.dumps(para), 'application/json; charset=UTF-8'),
+                    'file': open("./"+ output_path, "rb")
+                    }
+            r = requests.post(
+                     "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+                    headers=headers,
+                     files=files
+                    )
+            print(r.text)
+    
+            return file_name
         else:
             print('Nothing Matched')
     

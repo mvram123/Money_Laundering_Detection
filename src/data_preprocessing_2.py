@@ -2,14 +2,25 @@ import pandas
 import json
 import numpy as np
 import csv
+import logging
 from random import randint
 
 data_path = "data_processed/filtered_data.csv"
 
-print("Reading Preprocessed 1 dataset...")
+logging.basicConfig(filename='logs/model_development.txt',
+					filemode='a',
+					format='%(asctime)s %(message)s',
+					datefmt="%Y-%m-%d %H:%M:%S")
+
+logging.warning("----------")
+logging.warning("DATA PREPROCESSING 2 STAGE")
+
+logging.warning("Reading Preprocessed 1 dataset...")
+
 X = pandas.read_csv(data_path)
 X = X.to_numpy()
-print("Read dataset")
+
+logging.warning("Read Preprocessed 1 dataset...")
 
 csv_dataset_primary = []
 step = 0
@@ -23,7 +34,8 @@ accountType = 8
 isFraud = 9
 isFlaggedFraud = 10
 
-print("Changing Labels of Type Column ...")
+logging.warning("Changing Labels of Type Column ...")
+
 transfer = ["WIRE_IN", "WIRE_OUT"]
 for i in range(X.shape[0]):
 	arr = []
@@ -49,8 +61,9 @@ for i in range(X.shape[0]):
 
 	csv_dataset_primary.append(arr)
 
-print("Changing Labels Done")
-print("Storing Data in Data_processed Folder...")
+logging.warning("Changing Labels Done")
+logging.warning("Storing Data in Data_processed Folder...")
+
 
 columns=['step','trans_type','amount','nameOrig','oldbalanceOrg',
         'nameDest','oldbalanceDest','accountType','isFraud','isFlaggedFraud']
@@ -59,6 +72,7 @@ data_primary = pandas.DataFrame(csv_dataset_primary, columns=columns)
 
 data_primary.to_csv('data_processed/filtered_data_2.csv', index=False)
 
-print("Storing Data Done")
+logging.warning("Storing Data Done")
+
 
 

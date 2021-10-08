@@ -2,13 +2,25 @@ import pandas
 import json
 import numpy as np
 import csv
+import logging
 from random import randint
 
 data_path = "data_processed/filtered_data_2.csv"
-print("Reading Preprocessed 2 dataset...")
+
+logging.basicConfig(filename='logs/model_development.txt',
+					filemode='a',
+					format='%(asctime)s %(message)s',
+					datefmt="%Y-%m-%d %H:%M:%S")
+
+logging.warning("----------")
+logging.warning("DATA PREPROCESSING 3 STAGE")
+
+logging.warning("Reading Preprocessed 2 dataset...")
+
 X = pandas.read_csv(data_path)
 X = X.to_numpy()
-print("Read dataset")
+
+logging.warning("Read Preprocessed 2 dataset")
 
 #col
 step = 0
@@ -56,7 +68,7 @@ csv_dataset_secondary = []
 entities_pos = {}
 enititesDict = {}
 
-print("Creating New Features Using Transaction History...")
+logging.warning("Creating New Features Using Transaction History...")
 
 def getSecRow(entity):
 	return [entity,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -313,10 +325,11 @@ columns = ['entity','incoming_domestic_amount_30','incoming_domestic_amount_60',
                      'outgoing_foreign_count_30','outgoing_foreign_count_60','outgoing_foreign_count_90',
                      'balance_difference_30','balance_difference_60','balance_difference_90','isFraud']
 
-print("Creating New Features Done")
-print("Storing Data in Data_processed Folder...")
+logging.warning("Creating New Features Done")
+
+logging.warning("Storing Data in Data_processed Folder...")
 
 data_secondary = pandas.DataFrame(csv_dataset_secondary, columns=columns)
 data_secondary.to_csv('data_processed/filtered_data_3.csv', index=False)
 
-print("Storing Data Done")
+logging.warning("Storing Data Done")

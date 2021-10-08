@@ -2,14 +2,24 @@ import pandas as pd
 import numpy as np
 import json
 import csv
+import logging
 from random import randint
 
 data_path = "data/data.csv"
 
-print("Reading Dataset...")
+logging.basicConfig(filename='logs/model_development.txt',
+					filemode='a',
+					format='%(asctime)s %(message)s',
+					datefmt="%Y-%m-%d %H:%M:%S")
+
+logging.warning("DATA PREPROCESSING 1 STAGE")
+
+logging.warning("Reading Dataset...")
+
 X = pd.read_csv(data_path)
 X = X.to_numpy()
-print("Read Dataset")
+
+logging.warning("Read Dataset")
 
 nameOrigCol = 3
 nameDestCol = 6
@@ -18,7 +28,8 @@ nameDest = []
 nameCount = {}
 namesWithMoreThanOneOccurrence = []
 
-print("Checking Each Person's Transactions Count...")
+logging.warning("Checking Each Person's Transactions Count...")
+
 for name in X[:,nameOrigCol]:
 	if nameCount.get(name,-1) == -1:
 		nameOrig.append(name)
@@ -39,9 +50,10 @@ for name in X[:,nameDestCol]:
 		nameCount[name] += 1
 		namesWithMoreThanOneOccurrence.append(name)
 
-print("Count Identification Done")
+logging.warning("Count Identification Done")
 
-print("Calculating Median ...")
+logging.warning("Calculating Median ...")
+
 countArr = []
 count = 0
 for attr, value in nameCount.items():
@@ -49,21 +61,25 @@ for attr, value in nameCount.items():
 		countArr.append(value)
 		count += 1
 median = np.median(countArr)
-print(f"Median : {median}")
 
-print("Filtering Data Based on Transactions Count...")
+logging.warning(f"Median : {median}")
+
+logging.warning("Filtering Data Based on Transactions Count...")
 csv_golden_data = []
 
 for i in range(X.shape[0]):
 	if nameCount.get(X[i,3],-1) > 40 or nameCount.get(X[i,6],-1) > 40:
 		csv_golden_data.append(X[i,:])
 
-print("Filtering Done")
-print("Storing Filtered Data in data_processed folder...")
+logging.warning("Filtering Done")
+
+logging.warning("Storing Filtered Data in data_processed folder...")
+
 with open("data_processed/filtered_data.csv", "w") as f:
     writer = csv.writer(f)
     writer.writerows(csv_golden_data)
-print("Data is Stored")
+
+logging.warning("Data is Stored")
 
 
 

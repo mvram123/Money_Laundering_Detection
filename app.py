@@ -6,7 +6,7 @@ import pickle
 import json
 import requests
 
-headers = {"Authorization": "Bearer ya29.a0ARrdaM_JMbDHKbHk4e0AI-XcCOEYI8a7IZjgDnodWMPqGU1GNS6it9rimFZ8EyatqToavCojIIG-HXsGtVSKJCKx6vB-JbirqHVtoVaZ83r4wP8qE9LcHWKZFW9_rPjxBZiZtJa_glNhNPE5nyM6VJ1s8UzX"}
+headers = {"Authorization": "Bearer ya29.a0ARrdaM90vuPFJOvY4BQXW-KLf6S-0eCTEKCAEQGyObWyJcwgbr1excGkxD0zeqQ5FK6yyKhlazEhBbGlR0dpEoGCR4LIS7FwPYQArp1yg4WEak7U1kGgShohaCCi394LL0UEwoJdOpoMeUbHYmiPOMlbUKO8"}
 
 model_path = 'saved_models/model.pkl'
 model = pickle.load(open(model_path, 'rb'))
